@@ -11,7 +11,7 @@ int	main(int argc, char **argv)
 	}
 	printf("Program run successfully\n");
 	//Call init_data and check for success
-	if (init_data(&data, argv) != 0)
+	if (init_data(&data, argc, argv) != 0)
 	{
 		return (1); //Exit if initialization failed
 	}
@@ -20,6 +20,9 @@ int	main(int argc, char **argv)
 	printf("Time to die: %d\n", data.time_to_die);
 	printf("Time to eat: %d\n", data.time_to_eat);
 	printf("Time to sleep: %d\n", data.time_to_sleep);
+	printf("Number of meals: %d\n", data.num_meals);
+	printf("Is dead: %d\n", data.dead);
+	//printf("Start time: %lld\n", data.start_time);
 
 	//Continue
 
