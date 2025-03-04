@@ -2,7 +2,7 @@ NAME = philo
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pthread
 
-SRCS = main.c
+SRCS = main.c init.c
 
 OBJS = $(SRCS:.c=.o)
 
