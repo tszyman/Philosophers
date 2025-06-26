@@ -2,22 +2,28 @@ NAME = philo
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -pthread
 
-SRCS = main.c init.c
+SRCDIR = src
+INCDIR = includes
+OBJDIR = obj
 
-OBJS = $(SRCS:.c=.o)
-
-RM = rm -f
+SOURCES = main.c parsing.c utils.c
+SRCS = $(addprefix $(SRCDIR)/, $(SOURCES))
+OBJS = $(addprefix $(OBJDIR)/, $(SOURCES:.c=.o))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
 clean:
-	$(RM) $(OBJS)
+	rm -rf $(OBJDIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
 re: fclean all
 
