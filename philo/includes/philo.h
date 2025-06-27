@@ -44,6 +44,16 @@ int		parse_args(int argc, char **argv, t_data *data);
 int		ft_atoi(const char *str);
 int		is_valid_number(const char *str);
 
+/* init */
+int		init_data(t_data *data);
+int		init_mutexes(t_data *data);
+int		init_philos(t_data *data);
+void	assign_forks(t_data *data);
+
+/* clean-up*/
+void	cleanup_data(t_data *data);
+void	destroy_mutexes(t_data *data);
+
 /* utils */
 long	get_current_time(void);
 void	ft_usleep(long time);

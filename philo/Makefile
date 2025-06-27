@@ -6,7 +6,7 @@ SRCDIR = src
 INCDIR = includes
 OBJDIR = obj
 
-SOURCES = main.c parsing.c utils.c
+SOURCES = main.c parsing.c utils.c init.c cleanup.c
 SRCS = $(addprefix $(SRCDIR)/, $(SOURCES))
 OBJS = $(addprefix $(OBJDIR)/, $(SOURCES:.c=.o))
 
