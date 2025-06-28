@@ -3,6 +3,7 @@
 int	main(int argc, char **argv)
 {
 	t_data	data;
+	int		i;
 
 	if (argc < 5 || argc > 6)
 	{
@@ -17,7 +18,7 @@ int	main(int argc, char **argv)
 		return (1); //Exit if initialization failed
 	}
 	if (init_data(&data) != 0){
-		print_error(RED"Failed to initialize data"RESET);
+		print_error("Failed to initialize data");
 		cleanup_data(&data);
 		return(1);
 	}
@@ -30,6 +31,17 @@ int	main(int argc, char **argv)
 	if (data.must_eat_count != -1)
 		printf("Must eat count: %d\n", data.must_eat_count);
 	printf("Mutexes initialized: %d forks + print + death\n", data.num_philos);
+	if (start_sim(&data) != 0){
+		print_error("Failed to start simulation!");
+		cleanup_data(&data);
+		return(1);
+	}
+	i = 0;
+	while(i < data.num_philos){
+		pthread_join(data.philos[i].thread, NULL);
+		i++;
+	}
+	
 	cleanup_data(&data);
 	return (0);
 }

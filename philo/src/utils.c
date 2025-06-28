@@ -21,3 +21,15 @@ void	print_error(const char *msg)
 {
 	printf(RED"Error: %s\n"RESET, msg);
 }
+
+void	print_msg(t_philo *philo, const char *msg)
+{
+	long	timestamp;
+
+	if (is_sim_end(philo->data))
+		return;
+	pthread_mutex_lock(&philo->data->print_mutex);
+	timestamp = get_current_time() - philo->data->start_time;
+	printf("[%ld] Philosopher: %d %s\n", timestamp, philo->id, msg);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+}

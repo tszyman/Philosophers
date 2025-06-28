@@ -9,6 +9,9 @@
 
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
+# define BLUE "\033[0;34m"
+# define YELLOW "\033[1;33m"
+# define GREY "\033[1;30m"
 # define RESET "\033[0m"
 
 
@@ -50,13 +53,33 @@ int		init_mutexes(t_data *data);
 int		init_philos(t_data *data);
 void	assign_forks(t_data *data);
 
-/* clean-up*/
+/* clean-up */
 void	cleanup_data(t_data *data);
 void	destroy_mutexes(t_data *data);
+
+/* Philos functions */
+void	*philo_life(void *arg);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+int		take_forks(t_philo *philo);
+void	drop_forks(t_philo *philo);
+
+/* simulation */
+int		start_sim(t_data *data);
+int		is_sim_end(t_data *data);
+
+/* death monitoring */
+int		check_philo_death(t_philo *philo, long current_time);
+int		chack_philos_fed(t_data *data);
+void	*death_monitor(void *arg);
+void	set_sim_end(t_data *data);
+
 
 /* utils */
 long	get_current_time(void);
 void	ft_usleep(long time);
 void	print_error(const char *msg);
+void	print_msg(t_philo *philo, const char *msg);
 
 #endif
