@@ -12,6 +12,7 @@
 # define BLUE "\033[0;34m"
 # define YELLOW "\033[1;33m"
 # define GREY "\033[1;30m"
+# define BLACK "\033[0;30m"
 # define RESET "\033[0m"
 
 
@@ -23,7 +24,8 @@ typedef struct s_philo
 	pthread_t 		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	struct s_data 	*data;
+	pthread_mutex_t	meal_mutex;
+	struct s_data	*data;
 } t_philo;
 
 typedef struct s_data
@@ -39,6 +41,7 @@ typedef struct s_data
 	pthread_mutex_t	death_mutex;
 	pthread_mutex_t	print_mutex;
 	t_philo			*philos;
+	pthread_t		monitor_thr;
 } t_data;
 
 //Function prototypes
@@ -71,7 +74,7 @@ int		is_sim_end(t_data *data);
 
 /* death monitoring */
 int		check_philo_death(t_philo *philo, long current_time);
-int		chack_philos_fed(t_data *data);
+int		check_philos_fed(t_data *data);
 void	*death_monitor(void *arg);
 void	set_sim_end(t_data *data);
 

@@ -16,6 +16,13 @@ void	destroy_mutexes(t_data *data)
 {
 	int	i;
 
+	if (data->philos){
+		i = 0;
+		while(i < data->num_philos){
+			pthread_mutex_destroy(&data->philos[i].meal_mutex);
+			i++;
+		}
+	}
 	if (data->forks){
 		i = 0;
 		while(i < data->num_philos){

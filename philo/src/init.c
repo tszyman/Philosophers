@@ -51,6 +51,12 @@ int	init_philos(t_data *data)
 		data->philos[i].meals_eaten = 0;
 		data->philos[i].last_meal_time = 0;
 		data->philos[i].data = data;
+		if (pthread_mutex_init(&data->philos[i].meal_mutex, NULL) != 0){
+			while (--i >= 0)
+				pthread_mutex_destroy(&data->philos[i].meal_mutex);
+			free(data->philos);
+			return(1);
+		}
 		i++;
 	}
 	return(0);

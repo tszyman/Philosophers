@@ -40,6 +40,8 @@ int		parse_args(int argc, char **argv, t_data *data)
 		if (!is_valid_number(argv[5]))
 			return (1);
 		data->must_eat_count = ft_atoi(argv[5]);
+		if (data->must_eat_count <= 0)
+			return(1);
 	}
 	else
 		data->must_eat_count = -1;

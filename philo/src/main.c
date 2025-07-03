@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 		pthread_join(data.philos[i].thread, NULL);
 		i++;
 	}
-	
+	pthread_join(data.monitor_thr, NULL);
 	cleanup_data(&data);
 	return (0);
 }

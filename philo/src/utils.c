@@ -26,9 +26,16 @@ void	print_msg(t_philo *philo, const char *msg)
 {
 	long	timestamp;
 
+	if (!philo || !philo->data || !msg)
+		return;
 	if (is_sim_end(philo->data))
 		return;
-	pthread_mutex_lock(&philo->data->print_mutex);
+	if (pthread_mutex_lock(&philo->data->print_mutex) != 0)
+		return;
+	if (is_sim_end(philo->data)){
+		pthread_mutex_unlock(&philo->data->print_mutex);
+		return;
+	}
 	timestamp = get_current_time() - philo->data->start_time;
 	printf("[%ld] Philosopher: %d %s\n", timestamp, philo->id, msg);
 	pthread_mutex_unlock(&philo->data->print_mutex);
