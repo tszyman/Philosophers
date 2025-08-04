@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/05 00:32:19 by tomek             #+#    #+#             */
+/*   Updated: 2025/08/05 00:33:38 by tomek            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 # include <stdio.h>
@@ -10,23 +22,22 @@
 # define GREEN "\033[0;32m"
 # define RED "\033[0;31m"
 # define BLUE "\033[0;34m"
-# define YELLOW "\033[1;33m"
-# define GREY "\033[1;30m"
+# define YELLOW "\033[0;33m"
+# define CYAN "\033[0;36m"
 # define BLACK "\033[0;30m"
 # define RESET "\033[0m"
-
 
 typedef struct s_philo
 {
 	int				id;
 	int				meals_eaten;
 	long			last_meal_time;
-	pthread_t 		thread;
+	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	meal_mutex;
 	struct s_data	*data;
-} t_philo;
+}	t_philo;
 
 typedef struct s_data
 {
@@ -42,7 +53,7 @@ typedef struct s_data
 	pthread_mutex_t	print_mutex;
 	t_philo			*philos;
 	pthread_t		monitor_thr;
-} t_data;
+}	t_data;
 
 //Function prototypes
 /* parsing */
@@ -78,11 +89,11 @@ int		check_philos_fed(t_data *data);
 void	*death_monitor(void *arg);
 void	set_sim_end(t_data *data);
 
-
 /* utils */
 long	get_current_time(void);
 void	ft_usleep(long time);
 void	print_error(const char *msg);
 void	print_msg(t_philo *philo, const char *msg);
+void	print_msg_eat(t_philo *philo, const char *msg);
 
 #endif
