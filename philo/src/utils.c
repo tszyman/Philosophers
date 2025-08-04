@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:35:06 by tomek             #+#    #+#             */
-/*   Updated: 2025/08/05 00:35:07 by tomek            ###   ########.fr       */
+/*   Updated: 2025/08/05 01:10:50 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long	get_current_time(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return((tv.tv_sec * 1000) + (tv.tv_usec / 1000)); // total time: tv_sec + tv_usec from 1.01.1970, we need to convert sec -> mili + micro -> mili
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
 
 void	ft_usleep(long time)
@@ -39,14 +39,15 @@ void	print_msg(t_philo *philo, const char *msg)
 	long	timestamp;
 
 	if (!philo || !philo->data || !msg)
-		return;
+		return ;
 	if (is_sim_end(philo->data))
-		return;
+		return ;
 	if (pthread_mutex_lock(&philo->data->print_mutex) != 0)
-		return;
-	if (is_sim_end(philo->data)){
+		return ;
+	if (is_sim_end(philo->data))
+	{
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		return;
+		return ;
 	}
 	timestamp = get_current_time() - philo->data->start_time;
 	printf("[%ld] Philosopher: %d %s\n", timestamp, philo->id, msg);
@@ -58,16 +59,18 @@ void	print_msg_eat(t_philo *philo, const char *msg)
 	long	timestamp;
 
 	if (!philo || !philo->data || !msg)
-		return;
+		return ;
 	if (is_sim_end(philo->data))
-		return;
+		return ;
 	if (pthread_mutex_lock(&philo->data->print_mutex) != 0)
-		return;
-	if (is_sim_end(philo->data)){
+		return ;
+	if (is_sim_end(philo->data))
+	{
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		return;
+		return ;
 	}
 	timestamp = get_current_time() - philo->data->start_time;
-	printf("[%ld] Philosopher: %d %s (meal #%d)\n", timestamp, philo->id, msg, philo->meals_eaten+1);
+	printf("[%ld] Philosopher: %d %s (meal #%d)\n", timestamp, philo->id,
+		msg, philo->meals_eaten + 1);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
