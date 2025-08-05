@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:34:57 by tomek             #+#    #+#             */
-/*   Updated: 2025/08/05 01:05:35 by tomek            ###   ########.fr       */
+/*   Updated: 2025/08/05 23:04:23 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@ void	*philo_life(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->meal_mutex);
 	philo->last_meal_time = philo->data->start_time;
+	pthread_mutex_unlock(&philo->meal_mutex);
 	if (philo->data->num_philos == 1)
 	{
 		print_msg(philo, "has taken a fork");
 		ft_usleep(philo->data->time_to_die);
 		return (0);
 	}
-	philo->last_meal_time = philo->data->start_time;
 	if (philo->id % 2 == 0)
 		ft_usleep(philo->data->time_to_eat / 2 + 10);
 	while (!is_sim_end(philo->data))
