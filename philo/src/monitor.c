@@ -6,11 +6,40 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:34:46 by tomek             #+#    #+#             */
-/*   Updated: 2025/08/05 01:00:37 by tomek            ###   ########.fr       */
+/*   Updated: 2025/08/05 22:19:18 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+static int	check_all_philos_for_death(t_data *data)
+{
+	int		i;
+	long	curr_time;
+
+	curr_time = get_current_time();
+	i = 0;
+	while (i < data->num_philos)
+	{
+		if (!data->philos)
+			return (1);
+		if (check_philo_death(&data->philos[i], curr_time))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static int	check_meals_eaten(t_data *data)
+{
+	if (data->must_eat_count != -1 && check_philos_fed(data))
+	{
+		printf("All philos fed.\n");
+		set_sim_end(data);
+		return (1);
+	}
+	return (0);
+}
 
 int	check_philo_death(t_philo *philo, long current_time)
 {
@@ -59,40 +88,15 @@ int	check_philos_fed(t_data *data)
 void	*death_monitor(void *arg)
 {
 	t_data	*data;
-	int		i;
-	long	curr_time;
 
 	data = (t_data *)arg;
 	while (!is_sim_end(data))
 	{
-		curr_time = get_current_time();
-		i = 0;
-		while (i < data->num_philos && !is_sim_end(data))
-		{
-			if (!data->philos)
-				return (0);
-			if (check_philo_death(&data->philos[i], curr_time))
-				return (0);
-			i++;
-		}
-		if (data->must_eat_count != -1 && check_philos_fed(data))
-		{
-			printf("All philos fed.\n");
-			set_sim_end(data);
-			return (0);
-		}
+		if (check_all_philos_for_death(data))
+			break ;
+		if (check_meals_eaten(data))
+			break ;
 		usleep (1000);
 	}
 	return (0);
 }
-
-void	set_sim_end(t_data *data)
-{
-	printf("Simulation has ended!\n");
-	pthread_mutex_lock(&data->death_mutex);
-	data->sim_end = 1;
-	pthread_mutex_unlock(&data->death_mutex);
-}
-
-/*TODO*/
-/*Refactor: function has more than 25 lines*/

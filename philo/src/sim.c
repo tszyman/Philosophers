@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:35:02 by tomek             #+#    #+#             */
-/*   Updated: 2025/08/05 01:08:37 by tomek            ###   ########.fr       */
+/*   Updated: 2025/08/05 22:19:49 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,12 @@ int	is_sim_end(t_data *data)
 	end = data->sim_end;
 	pthread_mutex_unlock(&data->death_mutex);
 	return (end);
+}
+
+void	set_sim_end(t_data *data)
+{
+	printf("Simulation has ended!\n");
+	pthread_mutex_lock(&data->death_mutex);
+	data->sim_end = 1;
+	pthread_mutex_unlock(&data->death_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:32:19 by tomek             #+#    #+#             */
-/*   Updated: 2025/08/05 00:33:38 by tomek            ###   ########.fr       */
+/*   Updated: 2025/08/05 22:19:32 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		init_data(t_data *data);
 int		init_mutexes(t_data *data);
 int		init_philos(t_data *data);
 void	assign_forks(t_data *data);
+int		init_and_validate_args(int argc, char **argv, t_data *data);
 
 /* clean-up */
 void	cleanup_data(t_data *data);
@@ -82,12 +83,12 @@ void	drop_forks(t_philo *philo);
 /* simulation */
 int		start_sim(t_data *data);
 int		is_sim_end(t_data *data);
+void	set_sim_end(t_data *data);
 
 /* death monitoring */
 int		check_philo_death(t_philo *philo, long current_time);
 int		check_philos_fed(t_data *data);
 void	*death_monitor(void *arg);
-void	set_sim_end(t_data *data);
 
 /* utils */
 long	get_current_time(void);
