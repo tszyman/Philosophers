@@ -6,7 +6,7 @@
 /*   By: tomek <tomek@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 00:34:31 by tomek             #+#    #+#             */
-/*   Updated: 2025/08/05 22:25:47 by tomek            ###   ########.fr       */
+/*   Updated: 2025/08/05 23:29:59 by tomek            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ int	init_and_validate_args(int argc, char **argv, t_data *data)
 		print_error("Invalid number of arguments.");
 		return (1);
 	}
-	printf(GREEN"Program run successfully!\n"RESET);
 	if (parse_args(argc, argv, data) != 0)
 	{
 		print_error("Invalid agruments.");
